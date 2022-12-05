@@ -38,21 +38,6 @@
                 tools:listitem="@layout/marvel_item"
                 app:layout_constraintTop_toBottomOf="@id/marvelComicsTxt"/>
 
-            <TextView
-                android:id="@+id/marvelEmptyComicsTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no_comics_found"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:padding="10dp"
-                android:visibility="visible"
-                android:layout_margin="20dp"
-                android:elevation="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/marvelComicsTxt"
-                app:layout_constraintBottom_toTopOf="@id/marvelEventsTxt"/>
 
             <TextView
                 android:id="@+id/marvelEventsTxt"
@@ -78,21 +63,6 @@
                 tools:listitem="@layout/marvel_item"
                 app:layout_constraintTop_toBottomOf="@id/marvelEventsTxt"/>
 
-            <TextView
-                android:id="@+id/marvelEmptyEventsTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no_events_found"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:padding="10dp"
-                android:visibility="visible"
-                android:elevation="10dp"
-                android:layout_margin="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/marvelEventsTxt"
-                app:layout_constraintBottom_toTopOf="@id/marvelSeriesTxt"/>
 
             <TextView
                 android:id="@+id/marvelSeriesTxt"
@@ -118,21 +88,6 @@
                 tools:listitem="@layout/marvel_item"
                 app:layout_constraintTop_toBottomOf="@id/marvelSeriesTxt"/>
 
-            <TextView
-                android:id="@+id/marvelEmptySeriesTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no_series_found"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:padding="10dp"
-                android:visibility="visible"
-                android:elevation="10dp"
-                android:layout_margin="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/marvelSeriesTxt"
-                app:layout_constraintBottom_toTopOf="@id/marvelStoriesTxt"/>
 
             <TextView
                 android:id="@+id/marvelStoriesTxt"
@@ -167,14 +122,51 @@
                 android:text="@string/no_stories_found"
                 android:textColor="@color/black"
                 android:textSize="13sp"
-                android:padding="10dp"
-                android:elevation="10dp"
                 android:visibility="visible"
-                android:layout_margin="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/marvelStoriesTxt"
                 app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/marvelEmptyComicsTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_comics_found"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marvelComicsTxt"
+                app:layout_constraintBottom_toTopOf="@id/marvelEventsTxt"/>
+
+            <TextView
+                android:id="@+id/marvelEmptyEventsTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_events_found"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marvelEventsTxt"
+                app:layout_constraintBottom_toTopOf="@id/marvelSeriesTxt"/>
+
+
+            <TextView
+                android:id="@+id/marvelEmptySeriesTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_series_found"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marvelSeriesTxt"
+                app:layout_constraintBottom_toTopOf="@id/marvelStoriesTxt"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

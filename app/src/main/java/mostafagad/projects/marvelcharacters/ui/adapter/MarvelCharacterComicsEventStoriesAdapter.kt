@@ -47,7 +47,7 @@ class MarvelCharacterComicsEventStoriesAdapter(private val marveLCharactersDetai
         holder.itemView.layoutParams.width = itemWidth - 10
 
         val result = marveLCharactersDetailsList?.get(position)
-        holder.movieName.text = result?.description
+        holder.movieName.text = result?.title
         "${result?.thumbnail?.path}/portrait_xlarge.${result?.thumbnail?.extension}".loadImg(img = holder.marvelCharImg,
             ctx = holder.itemView.context)
 
