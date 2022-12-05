@@ -5,14 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import mostafagad.projects.marvelcharacters.R
-import mostafagad.projects.marvelcharacters.utils.Ext.loadImg
+import mostafagad.projects.marvelcharacters.data.datasource.model.Result
+import mostafagad.projects.marvelcharacters.databinding.MarvelDetailsItemBinding
 
-class MarvelCharacterComicsEventStoriesAdapter(private val marveLCharactersDetailsList: ArrayList<mostafagad.projects.marvelcharacters.data.datasource.model.Result?>?) :
+class MarvelCharacterComicsEventStoriesAdapter(private val marveLCharactersDetailsList: ArrayList<Result?>?) :
     RecyclerView.Adapter<MarvelCharacterComicsEventStoriesAdapter.CharacterViewHolder>() {
 
     private lateinit var scaleAnim: Animation
@@ -25,20 +24,17 @@ class MarvelCharacterComicsEventStoriesAdapter(private val marveLCharactersDetai
         this.recyclerView = recyclerView
     }
 
-    class CharacterViewHolder(itemView: View) : ViewHolder(itemView) {
-        val marvelCharImg = itemView.findViewById<ImageView>(R.id.marvelCharImg)!!
-        val movieName = itemView.findViewById<TextView>(R.id.movieCharTxt)!!
-
+    class CharacterViewHolder(private val marvelDetailsItemBinding: MarvelDetailsItemBinding) : ViewHolder(marvelDetailsItemBinding.root) {
+        fun bind(item: Result?){
+            marvelDetailsItemBinding.detailsItem = item
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
-        return CharacterViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.marvel_item,
-                parent,
-                false
-            )
-        )
+        val inflater = LayoutInflater.from(parent.context)
+        val marvelCharacterBinding = MarvelDetailsItemBinding.inflate(inflater , parent , false)
+        return CharacterViewHolder(marvelCharacterBinding)
+
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
@@ -46,11 +42,7 @@ class MarvelCharacterComicsEventStoriesAdapter(private val marveLCharactersDetai
         val itemWidth: Int = (recyclerView.layoutManager?.width!! - 62) / 2
         holder.itemView.layoutParams.width = itemWidth - 10
 
-        val result = marveLCharactersDetailsList?.get(position)
-        holder.movieName.text = result?.title
-        "${result?.thumbnail?.path}/portrait_xlarge.${result?.thumbnail?.extension}".loadImg(img = holder.marvelCharImg,
-            ctx = holder.itemView.context)
-
+        holder.bind(item = marveLCharactersDetailsList?.get(position))
     }
 
     override fun getItemCount(): Int = marveLCharactersDetailsList?.size!!

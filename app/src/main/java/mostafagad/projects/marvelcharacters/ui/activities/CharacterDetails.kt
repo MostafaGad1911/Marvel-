@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import mostafagad.projects.marvelcharacters.R
 import mostafagad.projects.marvelcharacters.databinding.ActivityCharacterDetailsBinding
 import mostafagad.projects.marvelcharacters.ui.adapter.MarvelCharacterComicsEventStoriesAdapter
 import mostafagad.projects.marvelcharacters.ui.viewModels.CharacterDetailsVM
@@ -19,7 +21,9 @@ import mostafagad.projects.marvelcharacters.utils.Ext.toast
 @AndroidEntryPoint
 class CharacterDetails : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCharacterDetailsBinding
+    private val binding: ActivityCharacterDetailsBinding by lazy {
+        DataBindingUtil.setContentView(this , R.layout.activity_character_details)
+    }
 
     private val viewModel: CharacterDetailsVM by viewModels()
 
@@ -54,8 +58,7 @@ class CharacterDetails : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCharacterDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_character_details)
         prepareMarvelCharRVS()
         loadMarvelCharacterDetails()
     }
@@ -84,7 +87,7 @@ class CharacterDetails : AppCompatActivity() {
                         if (marvelCharacterComicsList.isEmpty()) binding.marvelEmptyComicsTxt.show() else binding.marvelEmptyComicsTxt.hide()
                     }
                 }
-                it.charactersList?.isNotEmpty() == true -> {
+                it.charactersList.isNotEmpty() -> {
                     withContext(Dispatchers.Main) {
                         Log.i("COMICS_NOT_EMPTY", "test")
                         binding.detailsProgressBar.hide()

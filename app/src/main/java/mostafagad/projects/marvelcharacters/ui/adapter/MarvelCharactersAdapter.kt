@@ -5,13 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import mostafagad.projects.marvelcharacters.R
+import mostafagad.projects.marvelcharacters.databinding.MarvelItemBinding
 import mostafagad.projects.marvelcharacters.ui.interfaces.MovieController
-import mostafagad.projects.marvelcharacters.utils.Ext.loadImg
+
 class MarvelCharactersAdapter(private val charactersList: ArrayList<mostafagad.projects.marvelcharacters.domain.model.Character> , val movieController: MovieController? = null) :
     RecyclerView.Adapter<MarvelCharactersAdapter.CharacterViewHolder>() {
 
@@ -26,20 +25,16 @@ class MarvelCharactersAdapter(private val charactersList: ArrayList<mostafagad.p
         this.recyclerView = recyclerView
     }
 
-    class CharacterViewHolder(itemView: View) : ViewHolder(itemView) {
-        val marvelCharImg = itemView.findViewById<ImageView>(R.id.marvelCharImg)!!
-        val movieName = itemView.findViewById<TextView>(R.id.movieCharTxt)!!
-
+    inner class CharacterViewHolder(private val marvelItemBinding: MarvelItemBinding) : ViewHolder(marvelItemBinding.root) {
+        fun bind(item:mostafagad.projects.marvelcharacters.domain.model.Character){
+            marvelItemBinding.marvelItem = item
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
-        return CharacterViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.marvel_item,
-                parent,
-                false
-            )
-        )
+        val inflater = LayoutInflater.from(parent.context)
+        val marvelCharacterBinding = MarvelItemBinding.inflate(inflater , parent , false)
+        return CharacterViewHolder(marvelCharacterBinding)
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
@@ -47,13 +42,9 @@ class MarvelCharactersAdapter(private val charactersList: ArrayList<mostafagad.p
         val itemWidth: Int = (recyclerView.layoutManager?.width!! - 62) / 2
         holder.itemView.layoutParams.width = itemWidth - 10
 
-        val character = charactersList[position]
-        holder.movieName.text = character.name
-        "${character.thumbnail}/portrait_xlarge.${character.thumbnailExt}".loadImg(img = holder.marvelCharImg,
-            ctx = holder.itemView.context)
-
+        holder.bind(item = charactersList[position])
         holder.itemView.setOnClickListener{
-            _movieController?.getDetails(id = character.id.toLong())
+            _movieController?.getDetails(id = charactersList[position].id.toLong())
         }
     }
 

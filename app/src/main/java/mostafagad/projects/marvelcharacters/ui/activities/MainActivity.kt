@@ -4,9 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import mostafagad.projects.marvelcharacters.R
 import mostafagad.projects.marvelcharacters.databinding.ActivityMainBinding
 import mostafagad.projects.marvelcharacters.ui.viewModels.CharactersVM
 import mostafagad.projects.marvelcharacters.ui.adapter.MarvelCharactersAdapter
@@ -18,9 +20,11 @@ import mostafagad.projects.marvelcharacters.utils.Ext.toast
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() , MovieController{
 
-    private lateinit var binding:ActivityMainBinding
-
     private val viewModel: CharactersVM by viewModels()
+
+    private val mainActivityDataBinding:ActivityMainBinding by lazy {
+        DataBindingUtil.setContentView(this , R.layout.activity_main)
+    }
 
     private val marvelCharactersList:ArrayList<mostafagad.projects.marvelcharacters.domain.model.Character> = ArrayList()
     private val marvelCharactersAdapter: MarvelCharactersAdapter by lazy {
@@ -30,8 +34,7 @@ class MainActivity : AppCompatActivity() , MovieController{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_character_details)
         prepareMarvelCharsRV()
         collectMarvelCharacters()
         collectMarvelCharacters()
@@ -42,8 +45,8 @@ class MainActivity : AppCompatActivity() , MovieController{
             this, 2,
             GridLayoutManager.VERTICAL, false
         )
-        binding.marvelCharactersRV.layoutManager = lytManager
-        binding.marvelCharactersRV.adapter = marvelCharactersAdapter
+        mainActivityDataBinding.marvelCharactersRV.layoutManager = lytManager
+        mainActivityDataBinding.marvelCharactersRV.adapter = marvelCharactersAdapter
 
     }
     private fun collectMarvelCharacters(){
@@ -52,12 +55,12 @@ class MainActivity : AppCompatActivity() , MovieController{
                 when{
                     it.isLoading -> {
                        withContext(Dispatchers.Main){
-                           binding.progressBar.show()
+                           mainActivityDataBinding.progressBar.show()
                        }
                     }
                     it.charactersList.isNotEmpty() -> {
                         withContext(Dispatchers.Main){
-                            binding.progressBar.hide()
+                            mainActivityDataBinding.progressBar.hide()
                             marvelCharactersList.clear()
                             marvelCharactersList.addAll(it.charactersList)
                             marvelCharactersAdapter.notifyItemRangeInserted(marvelCharactersList.size.plus(1) , it.charactersList.size)
@@ -65,7 +68,7 @@ class MainActivity : AppCompatActivity() , MovieController{
                     }
                     it.error.isNotBlank() -> {
                         withContext(Dispatchers.Main){
-                            binding.progressBar.hide()
+                            mainActivityDataBinding.progressBar.hide()
                             it.error.toast(ctx = this@MainActivity)
                         }
                     }

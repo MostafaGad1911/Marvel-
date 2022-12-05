@@ -1,44 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="180dp"
-    android:layout_height="250dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginStart="5dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginTop="5dp"
-    app:cardCornerRadius="5dp"
-    android:padding="5dp"
-    app:cardBackgroundColor="@color/grey">
+<layout>
 
-    <LinearLayout
-        android:id="@+id/marvelCharacterLyt"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_margin="5dp">
+    <data>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/marvelCharImg"
+        <import type="android.view.View"/>
+        <variable
+            name="marvelItem"
+            type="mostafagad.projects.marvelcharacters.domain.model.Character" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="180dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="5dp"
+        android:padding="5dp"
+        app:cardBackgroundColor="@color/grey">
+
+        <LinearLayout
+            android:id="@+id/marvelCharacterLyt"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_margin="5dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"/>
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/movieCharTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColorHint="@android:color/darker_gray"
-            android:singleLine="true"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:hint="@string/movie_character_name"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:padding="4dp"
-            android:maxLines="1"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:layout_margin="5dp">
 
-</androidx.cardview.widget.CardView>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/marvelCharImg"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_margin="5dp"
+                app:loadImage="@{marvelItem.thumbnail +'.'+ marvelItem.thumbnailExt}"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/movieCharTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColorHint="@android:color/darker_gray"
+                android:singleLine="true"
+                android:gravity="center"
+                android:hint="@string/movie_character_name"
+                android:textStyle="bold"
+                android:text="@{marvelItem.name}"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:padding="4dp"
+                android:maxLines="1" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
